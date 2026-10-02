@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+data source db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  name        String?
+  avatarColor String?
+  documents   Document[] @relation("Owner")
+  collaborations DocumentCollaborator[]
+  comments    Comment[]
+}
+
+model Document {
+  id                String   @id @default(uuid())
+  title             String
+  ownerId           String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  owner             User     @relation("Owner", fields: [ownerId], references: [id])
+  collaborators     DocumentCollaborator[]
+  snapshots         DocumentSnapshot[]
+  namedVersions      NamedVersion[]
+  commentThreads    CommentThread[]
+}
+
+model DocumentCollaborator {
+  documentId String
+  userId     String
+  role       String
+  document   Document @relation(fields: [documentId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@id([documentId, userId])
+}
+
+model DocumentSnapshot {
+  id          String   @id @default(uuid())
+  documentId  String
+  ydocState   Bytes
+  createdAt   DateTime @default(now())
+  document    Document @relation(fields: [documentId], references: [id])
+}
+
+model NamedVersion {
+  id          String   @id @default(uuid())
+  documentId  String
+  name        String
+  ydocState   Bytes
+  createdBy   String
+  createdAt   DateTime @default(now())
+  document    Document @relation(fields: [documentId], references: [id])
+}
+
+model CommentThread {
+  id          String   @id @default(uuid())
+  documentId  String
+  anchorYjsId String
+  resolved    Boolean @default(false)
+  createdAt   DateTime @default(now())
+  document    Document @relation(fields: [documentId], references: [id])
+  comments    Comment[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  threadId  String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+  thread    CommentThread @relation(fields: [threadId], references: [id])
+  user      User         @relation(fields: [userId], references: [id])
+}

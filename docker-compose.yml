@@ -1,0 +1,58 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: andika
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: andika_live
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "andika"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  collab-server:
+    build: ./apps/collab-server
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "1234:1234"
+    volumes:
+      - .:/app
+    command: npm run dev
+
+  web:
+    build: ./apps/web
+    env_file: .env
+    depends_on:
+      - collab-server
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    command: npm run dev
+
+volumes:
+  pgdata:
+  redisdata:

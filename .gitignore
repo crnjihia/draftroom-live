@@ -1,0 +1,16 @@
+node_modules/
+# output directories
+dist/
+build/
+# local env files
+.env
+.env.local
+# Prisma files
+prisma/*.sqlite
+prisma/*.db
+# Next.js build
+.next/
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log

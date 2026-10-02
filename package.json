@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "eslint": "^9.8.0",
+    "prettier": "^3.3.3"
+  }
+}

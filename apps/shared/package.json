@@ -1,0 +1,12 @@
+{
+  "name": "andika-shared",
+  "private": true,
+  "main": "src/prisma/client.ts",
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@types/node": "^20.14.10"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.17.0"
+  }
+}
