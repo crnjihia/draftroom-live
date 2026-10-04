@@ -1,12 +1,20 @@
 {
-  "name": "andika-shared",
+  "name": "@andika/shared",
+  "version": "0.1.0",
   "private": true,
-  "main": "src/prisma/client.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "vitest run",
+    "prisma:generate": "prisma generate --schema=../../prisma/schema.prisma"
+  },
   "devDependencies": {
     "typescript": "^5.5.4",
-    "@types/node": "^20.14.10"
+    "@types/node": "^20.14.10",
+    "prisma": "^5.22.0"
   },
   "dependencies": {
-    "@prisma/client": "^5.17.0"
+    "@prisma/client": "^5.22.0"
   }
 }
