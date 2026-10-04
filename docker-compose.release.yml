@@ -1,0 +1,96 @@
+version: '3.9'
+
+# ==============================================================================
+# Draftroom Live - Production Release Deployment Stack
+# Spin up with: docker compose -f docker-compose.release.yml up -d
+# Uses pre-built multi-arch images from GitHub Container Registry (GHCR)
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. PostgreSQL Database Service
+  # ----------------------------------------------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: draftroom-release-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-draftroom}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_in_production}
+      POSTGRES_DB: ${POSTGRES_DB:-draftroom_live}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-draftroom} -d ${POSTGRES_DB:-draftroom_live}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+
+  # ----------------------------------------------------------------------------
+  # 2. Redis Pub/Sub & Awareness Service
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: draftroom-release-redis
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ----------------------------------------------------------------------------
+  # 3. Pre-built Socket.io & Yjs Collaboration Server
+  # ----------------------------------------------------------------------------
+  collab:
+    image: ghcr.io/crnjihia/draftroom-live-collab:${VERSION:-latest}
+    container_name: draftroom-release-collab
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-draftroom}:${POSTGRES_PASSWORD:-change_me_in_production}@db:5432/${POSTGRES_DB:-draftroom_live}?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ----------------------------------------------------------------------------
+  # 4. Pre-built Next.js Web Application
+  # ----------------------------------------------------------------------------
+  web:
+    image: ghcr.io/crnjihia/draftroom-live-web:${VERSION:-latest}
+    container_name: draftroom-release-web
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-draftroom}:${POSTGRES_PASSWORD:-change_me_in_production}@db:5432/${POSTGRES_DB:-draftroom_live}?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-change_me_production_secret_32_chars_minimum}
+      NEXT_PUBLIC_COLLAB_SERVER_URL: ${NEXT_PUBLIC_COLLAB_SERVER_URL:-http://localhost:4000}
+      NEXT_PUBLIC_COLLAB_WS_URL: ${NEXT_PUBLIC_COLLAB_WS_URL:-ws://localhost:4000}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      collab:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+    name: draftroom_release_pgdata
+  redisdata:
+    name: draftroom_release_redisdata

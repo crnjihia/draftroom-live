@@ -1,23 +1,39 @@
 version: '3.9'
+
+# ==============================================================================
+# Draftroom Live - Full Local Stack Orchestration
+# Dev-only credentials clearly marked. Never use these in production!
+# ==============================================================================
+
 services:
-  postgres:
+  # ----------------------------------------------------------------------------
+  # 1. PostgreSQL Database Service
+  # ----------------------------------------------------------------------------
+  db:
     image: postgres:16-alpine
+    container_name: draftroom-db
     environment:
       POSTGRES_USER: draftroom
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: dev_password_only_change_in_prod # DEV-ONLY CREDENTIAL
       POSTGRES_DB: draftroom_live
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "draftroom"]
+      test: ["CMD-SHELL", "pg_isready -U draftroom -d draftroom_live"]
       interval: 5s
       timeout: 5s
       retries: 5
+      start_period: 5s
+    restart: unless-stopped
 
+  # ----------------------------------------------------------------------------
+  # 2. Redis Pub/Sub & Awareness Service
+  # ----------------------------------------------------------------------------
   redis:
     image: redis:7-alpine
+    container_name: draftroom-redis
     ports:
       - "6379:6379"
     volumes:
@@ -27,32 +43,88 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
-  collab-server:
-    build: ./apps/collab-server
-    env_file: .env
+  # ----------------------------------------------------------------------------
+  # 3. One-shot Prisma Migration Runner
+  # ----------------------------------------------------------------------------
+  migrate:
+    image: node:20-alpine
+    container_name: draftroom-migrate
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      DATABASE_URL: postgresql://draftroom:dev_password_only_change_in_prod@db:5432/draftroom_live?schema=public
+    command: >
+      sh -c "npx prisma db push --schema=prisma/schema.prisma && node prisma/seed.js"
     depends_on:
-      postgres:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  # ----------------------------------------------------------------------------
+  # 4. Socket.io & Yjs Collaboration Server
+  # ----------------------------------------------------------------------------
+  collab:
+    build:
+      context: .
+      dockerfile: apps/collab-server/Dockerfile
+    container_name: draftroom-collab
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgresql://draftroom:dev_password_only_change_in_prod@db:5432/draftroom_live?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      db:
         condition: service_healthy
       redis:
         condition: service_healthy
-    ports:
-      - "1234:1234"
-    volumes:
-      - .:/app
-    command: npm run dev
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
 
+  # ----------------------------------------------------------------------------
+  # 5. Next.js Web Application
+  # ----------------------------------------------------------------------------
   web:
-    build: ./apps/web
-    env_file: .env
-    depends_on:
-      - collab-server
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_APP_URL: http://localhost:3000
+        NEXT_PUBLIC_COLLAB_SERVER_URL: http://localhost:4000
+        NEXT_PUBLIC_COLLAB_WS_URL: ws://localhost:4000
+    container_name: draftroom-web
     ports:
       - "3000:3000"
-    volumes:
-      - .:/app
-    command: npm run dev
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://draftroom:dev_password_only_change_in_prod@db:5432/draftroom_live?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: dev-secret-key-change-in-production-min32chars # DEV-ONLY
+      NEXT_PUBLIC_COLLAB_SERVER_URL: http://localhost:4000
+      NEXT_PUBLIC_COLLAB_WS_URL: ws://localhost:4000
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      collab:
+        condition: service_started
+    restart: unless-stopped
 
+# ------------------------------------------------------------------------------
+# Named Persistent Storage Volumes
+# ------------------------------------------------------------------------------
 volumes:
   pgdata:
+    name: draftroom_pgdata
   redisdata:
+    name: draftroom_redisdata
