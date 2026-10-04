@@ -118,7 +118,7 @@ export default async function DashboardPage() {
       {/* Main Content Area */}
       <div className="max-w-6xl mx-auto px-6 pt-8 space-y-10">
         {/* Welcome Banner */}
-        <div className="bg-linear-to-r from-blue-700 via-indigo-700 to-purple-800 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+        <div className="bg-indigo-700 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
           <div className="relative z-10 max-w-2xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-medium text-blue-200 mb-3 border border-white/20">
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
