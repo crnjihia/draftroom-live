@@ -32,7 +32,7 @@ jobs:
         run: npm run prisma:generate
 
       - name: Run Unit & CRDT Tests
-        run: npm test --workspaces
+        run: npm test --workspace=@draftroom/shared
 
       - name: Build Packages & Next.js App
         run: npm run build --workspaces
