@@ -13,6 +13,7 @@ import {
   ArrowRight,
   ExternalLink,
 } from 'lucide-react';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -73,35 +74,37 @@ export default async function DashboardPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 pb-16">
+    <main className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-16 transition-colors duration-200">
       {/* Top Navbar */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-20">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-20 transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold shadow-md">
               D
             </div>
             <div>
-              <span className="font-extrabold text-lg tracking-tight text-slate-900">
+              <span className="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
                 Draftroom Live
               </span>
-              <span className="text-xs text-blue-600 font-semibold ml-2 px-2 py-0.5 bg-blue-50 border border-blue-200 rounded-full">
+              <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold ml-2 px-2 py-0.5 bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 rounded-full">
                 Collab Editor
               </span>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2 text-xs text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
-              <GraduationCap className="w-4 h-4 text-blue-600" />
-              <span className="font-semibold text-slate-800">
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">
+              <GraduationCap className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
                 {user?.name || 'Amina Odhiambo'}
               </span>
               <span className="text-slate-400">•</span>
-              <span className="text-slate-500">
+              <span className="text-slate-500 dark:text-slate-400">
                 {(user as any)?.university || 'USIU-Africa'}
               </span>
             </div>
+
+            <ThemeToggle />
 
             <Link
               id="btn-create-doc"
@@ -118,7 +121,7 @@ export default async function DashboardPage() {
       {/* Main Content Area */}
       <div className="max-w-6xl mx-auto px-6 pt-8 space-y-10">
         {/* Welcome Banner */}
-        <div className="bg-indigo-700 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+        <div className="bg-indigo-700 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 rounded-2xl p-8 text-white shadow-xl dark:shadow-indigo-950/40 relative overflow-hidden">
           <div className="relative z-10 max-w-2xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-medium text-blue-200 mb-3 border border-white/20">
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
@@ -146,10 +149,10 @@ export default async function DashboardPage() {
         {/* My Documents Section */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-blue-600" />
+            <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               <span>My Assignments</span>
-              <span className="text-xs font-medium text-slate-400 bg-slate-200/60 px-2 py-0.5 rounded-full">
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-2 py-0.5 rounded-full">
                 {myDocs.length}
               </span>
             </h2>
@@ -160,21 +163,21 @@ export default async function DashboardPage() {
               <Link
                 key={doc.id}
                 href={`/documents/${doc.id}`}
-                className="group bg-white p-5 rounded-xl border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all flex flex-col justify-between"
+                className="group bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-mono uppercase font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
+                    <span className="text-[10px] font-mono uppercase font-bold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
                       Doc ID: {doc.id.slice(0, 8)}
                     </span>
-                    <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-blue-600 transition-colors" />
+                    <ExternalLink className="w-4 h-4 text-slate-300 dark:text-slate-600 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
                   </div>
-                  <h3 className="font-bold text-slate-800 text-sm group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                  <h3 className="font-bold text-slate-800 dark:text-slate-100 text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 mb-2">
                     {doc.title}
                   </h3>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400 dark:text-slate-500">
                   <span className="flex items-center gap-1 text-[11px]">
                     <Clock className="w-3.5 h-3.5" />
                     {new Date(doc.updatedAt).toLocaleDateString(undefined, {
@@ -182,7 +185,7 @@ export default async function DashboardPage() {
                       day: 'numeric',
                     })}
                   </span>
-                  <span className="text-blue-600 font-semibold text-[11px] group-hover:translate-x-1 transition-transform inline-flex items-center">
+                  <span className="text-blue-600 dark:text-blue-400 font-semibold text-[11px] group-hover:translate-x-1 transition-transform inline-flex items-center">
                     Open Editor &rarr;
                   </span>
                 </div>
@@ -195,10 +198,10 @@ export default async function DashboardPage() {
         {sharedDocs.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                <Users className="w-5 h-5 text-emerald-600" />
+              <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                <Users className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 <span>Shared with Me</span>
-                <span className="text-xs font-medium text-slate-400 bg-slate-200/60 px-2 py-0.5 rounded-full">
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-2 py-0.5 rounded-full">
                   {sharedDocs.length}
                 </span>
               </h2>
@@ -209,25 +212,25 @@ export default async function DashboardPage() {
                 <Link
                   key={doc.id}
                   href={`/documents/${doc.id}`}
-                  className="group bg-white p-5 rounded-xl border border-slate-200 hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between"
+                  className="group bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition-all flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-start justify-between gap-2 mb-2">
-                      <span className="text-[10px] font-mono uppercase font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      <span className="text-[10px] font-mono uppercase font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                         Shared Collab
                       </span>
-                      <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-emerald-600 transition-colors" />
+                      <ExternalLink className="w-4 h-4 text-slate-300 dark:text-slate-600 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
                     </div>
-                    <h3 className="font-bold text-slate-800 text-sm group-hover:text-emerald-600 transition-colors line-clamp-2 mb-2">
+                    <h3 className="font-bold text-slate-800 dark:text-slate-100 text-sm group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors line-clamp-2 mb-2">
                       {doc.title}
                     </h3>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                  <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400 dark:text-slate-500">
                     <span className="text-[11px]">
                       Owner: {doc.owner?.name || 'Group Mate'}
                     </span>
-                    <span className="text-emerald-600 font-semibold text-[11px] group-hover:translate-x-1 transition-transform inline-flex items-center">
+                    <span className="text-emerald-600 dark:text-emerald-400 font-semibold text-[11px] group-hover:translate-x-1 transition-transform inline-flex items-center">
                       Join &rarr;
                     </span>
                   </div>

@@ -7,12 +7,18 @@
   --foreground: #0f172a;
 }
 
+.dark {
+  --background: #0b0f19;
+  --foreground: #f1f5f9;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   margin: 0;
   padding: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* TipTap ProseMirror Collaborative Editor Styling */
@@ -121,3 +127,64 @@ body {
   background-color: #fde047;
   border-bottom-color: #ca8a04;
 }
+
+/* Dark Mode ProseMirror Typography & Elements */
+.dark .ProseMirror {
+  color: #e2e8f0;
+}
+
+.dark .ProseMirror h1 {
+  color: #f8fafc;
+}
+
+.dark .ProseMirror h2 {
+  color: #f1f5f9;
+}
+
+.dark .ProseMirror h3 {
+  color: #e2e8f0;
+}
+
+.dark .ProseMirror blockquote {
+  border-left-color: #475569;
+  color: #94a3b8;
+}
+
+.dark .ProseMirror hr {
+  border-top-color: #334155;
+}
+
+.dark .comment-highlight {
+  background-color: rgba(234, 179, 8, 0.35);
+  border-bottom: 2px solid #facc15;
+}
+
+.dark .comment-highlight:hover,
+.dark .comment-highlight.active {
+  background-color: rgba(234, 179, 8, 0.55);
+  border-bottom-color: #fde047;
+}
+
+/* Custom Sleek Dark Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+

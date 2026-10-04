@@ -149,25 +149,27 @@ export default function Editor({
         {/* Editor Body */}
         <div className="flex-1 flex flex-col overflow-y-auto items-center p-4 sm:p-8">
           {/* Document Container Card */}
-          <div className="w-full max-w-4xl bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex flex-col relative editor-container my-auto">
+          <div className="w-full max-w-4xl bg-white dark:bg-slate-900 rounded-xl shadow-md dark:shadow-slate-950/60 border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col relative editor-container my-auto transition-colors duration-200">
             {/* Document Title Header */}
-            <div className="px-8 pt-6 pb-2 border-b border-slate-100 flex items-center justify-between">
-              <h1 className="text-xl font-bold text-slate-800 tracking-tight">
+            <div className="px-8 pt-6 pb-2 border-b border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+              <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">
                 {documentTitle}
               </h1>
-              <span className="text-[11px] font-mono text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
+              <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
                 Room: {documentId.slice(0, 8)}
               </span>
             </div>
 
             {/* TipTap Formatting Toolbar */}
             {editor && (
-              <div className="flex flex-wrap items-center gap-1 px-8 py-2 bg-slate-50 border-b border-slate-200 text-slate-600">
+              <div className="flex flex-wrap items-center gap-1 px-8 py-2 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300">
                 <button
                   type="button"
                   onClick={() => editor.chain().focus().toggleBold().run()}
-                  className={`p-1.5 rounded hover:bg-slate-200 transition-colors ${
-                    editor.isActive('bold') ? 'bg-slate-200 text-blue-700 font-bold' : ''
+                  className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
+                    editor.isActive('bold')
+                      ? 'bg-slate-200 dark:bg-slate-700 text-blue-700 dark:text-blue-400 font-bold'
+                      : ''
                   }`}
                   title="Bold (Ctrl+B)"
                 >
@@ -176,24 +178,26 @@ export default function Editor({
                 <button
                   type="button"
                   onClick={() => editor.chain().focus().toggleItalic().run()}
-                  className={`p-1.5 rounded hover:bg-slate-200 transition-colors ${
-                    editor.isActive('italic') ? 'bg-slate-200 text-blue-700' : ''
+                  className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
+                    editor.isActive('italic')
+                      ? 'bg-slate-200 dark:bg-slate-700 text-blue-700 dark:text-blue-400'
+                      : ''
                   }`}
                   title="Italic (Ctrl+I)"
                 >
                   <Italic className="w-4 h-4" />
                 </button>
 
-                <div className="w-px h-4 bg-slate-300 mx-1" />
+                <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1" />
 
                 <button
                   type="button"
                   onClick={() =>
                     editor.chain().focus().toggleHeading({ level: 1 }).run()
                   }
-                  className={`p-1.5 rounded hover:bg-slate-200 transition-colors ${
+                  className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
                     editor.isActive('heading', { level: 1 })
-                      ? 'bg-slate-200 text-blue-700'
+                      ? 'bg-slate-200 dark:bg-slate-700 text-blue-700 dark:text-blue-400'
                       : ''
                   }`}
                   title="Heading 1"
@@ -205,9 +209,9 @@ export default function Editor({
                   onClick={() =>
                     editor.chain().focus().toggleHeading({ level: 2 }).run()
                   }
-                  className={`p-1.5 rounded hover:bg-slate-200 transition-colors ${
+                  className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
                     editor.isActive('heading', { level: 2 })
-                      ? 'bg-slate-200 text-blue-700'
+                      ? 'bg-slate-200 dark:bg-slate-700 text-blue-700 dark:text-blue-400'
                       : ''
                   }`}
                   title="Heading 2"
@@ -215,14 +219,14 @@ export default function Editor({
                   <Heading2 className="w-4 h-4" />
                 </button>
 
-                <div className="w-px h-4 bg-slate-300 mx-1" />
+                <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1" />
 
                 <button
                   type="button"
                   onClick={() => editor.chain().focus().toggleBulletList().run()}
-                  className={`p-1.5 rounded hover:bg-slate-200 transition-colors ${
+                  className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
                     editor.isActive('bulletList')
-                      ? 'bg-slate-200 text-blue-700'
+                      ? 'bg-slate-200 dark:bg-slate-700 text-blue-700 dark:text-blue-400'
                       : ''
                   }`}
                   title="Bullet List"
@@ -232,9 +236,9 @@ export default function Editor({
                 <button
                   type="button"
                   onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                  className={`p-1.5 rounded hover:bg-slate-200 transition-colors ${
+                  className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
                     editor.isActive('orderedList')
-                      ? 'bg-slate-200 text-blue-700'
+                      ? 'bg-slate-200 dark:bg-slate-700 text-blue-700 dark:text-blue-400'
                       : ''
                   }`}
                   title="Numbered List"
@@ -244,9 +248,9 @@ export default function Editor({
                 <button
                   type="button"
                   onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                  className={`p-1.5 rounded hover:bg-slate-200 transition-colors ${
+                  className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
                     editor.isActive('blockquote')
-                      ? 'bg-slate-200 text-blue-700'
+                      ? 'bg-slate-200 dark:bg-slate-700 text-blue-700 dark:text-blue-400'
                       : ''
                   }`}
                   title="Quote"
@@ -263,12 +267,12 @@ export default function Editor({
                     disabled={!hasSelection}
                     className={`flex items-center space-x-1.5 px-2.5 py-1 text-xs font-semibold rounded transition-colors ${
                       hasSelection
-                        ? 'bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 shadow-2xs'
-                        : 'opacity-40 cursor-not-allowed text-slate-400'
+                        ? 'bg-amber-100 dark:bg-amber-950/60 hover:bg-amber-200 dark:hover:bg-amber-900 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-700 shadow-2xs'
+                        : 'opacity-40 cursor-not-allowed text-slate-400 dark:text-slate-500'
                     }`}
                     title="Add Comment to selected text"
                   >
-                    <MessageSquarePlus className="w-3.5 h-3.5 text-amber-700" />
+                    <MessageSquarePlus className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
                     <span>Comment</span>
                   </button>
                 </div>

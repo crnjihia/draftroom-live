@@ -98,7 +98,7 @@ export function computeWordDiff(oldText: string, newText: string): DiffSegment[]
  */
 export function generateDiffHtml(oldText: string, newText: string): string {
   const diffs = computeWordDiff(oldText, newText);
-  let html = '<div class="prose max-w-none text-slate-800 leading-relaxed">';
+  let html = '<div class="prose max-w-none text-slate-800 dark:text-slate-200 leading-relaxed">';
 
   for (const seg of diffs) {
     const escaped = seg.value
@@ -107,9 +107,9 @@ export function generateDiffHtml(oldText: string, newText: string): string {
       .replace(/>/g, '&gt;');
 
     if (seg.type === 'added') {
-      html += `<ins class="bg-emerald-100 text-emerald-900 no-underline font-medium px-1 rounded mx-0.5 border-b-2 border-emerald-500">${escaped}</ins>`;
+      html += `<ins class="bg-emerald-100 dark:bg-emerald-950/80 text-emerald-900 dark:text-emerald-200 no-underline font-medium px-1 rounded mx-0.5 border-b-2 border-emerald-500">${escaped}</ins>`;
     } else if (seg.type === 'removed') {
-      html += `<del class="bg-rose-100 text-rose-800 line-through px-1 rounded mx-0.5 opacity-80">${escaped}</del>`;
+      html += `<del class="bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 line-through px-1 rounded mx-0.5 opacity-80">${escaped}</del>`;
     } else {
       html += escaped;
     }

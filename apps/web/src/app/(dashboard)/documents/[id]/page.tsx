@@ -7,8 +7,8 @@ import dynamic from 'next/dynamic';
 const Editor = dynamic(() => import('@/components/editor/Editor'), {
   ssr: false,
   loading: () => (
-    <div className="h-screen w-screen flex flex-col items-center justify-center bg-slate-50">
-      <div className="flex items-center space-x-3 text-slate-600 font-medium">
+    <div className="h-screen w-screen flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="flex items-center space-x-3 text-slate-600 dark:text-slate-300 font-medium">
         <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
         <span>Loading Editor...</span>
       </div>
@@ -56,7 +56,7 @@ export default async function DocumentPage({ params }: PageProps) {
   const title = doc?.title || `Assignment (${params.id.slice(0, 6)})`;
 
   return (
-    <main className="h-screen w-screen overflow-hidden flex flex-col bg-slate-100">
+    <main className="h-screen w-screen overflow-hidden flex flex-col bg-slate-100 dark:bg-slate-950 transition-colors">
       <Editor
         documentId={params.id}
         documentTitle={title}

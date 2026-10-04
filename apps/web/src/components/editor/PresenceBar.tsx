@@ -15,6 +15,7 @@ import {
   Share2,
   CheckCircle2,
 } from 'lucide-react';
+import ThemeToggle from '@/components/ThemeToggle';
 
 interface PresenceBarProps {
   documentId: string;
@@ -147,13 +148,13 @@ export default function PresenceBar({
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-white border-b border-slate-200 shadow-sm sticky top-0 z-30">
+    <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm sticky top-0 z-30 transition-colors duration-200">
       {/* Connection & Sync Status Indicator */}
       <div className="flex items-center space-x-3">
         {status === 'connected' ? (
           <div
             id="connection-status"
-            className="flex items-center space-x-2 text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full"
+            className="flex items-center space-x-2 text-xs font-semibold px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 rounded-full"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -165,7 +166,7 @@ export default function PresenceBar({
         ) : status === 'connecting' ? (
           <div
             id="connection-status"
-            className="flex items-center space-x-2 text-xs font-semibold px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full"
+            className="flex items-center space-x-2 text-xs font-semibold px-2.5 py-1 bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 rounded-full"
           >
             <RefreshCw className="w-3.5 h-3.5 animate-spin" />
             <span>Connecting...</span>
@@ -173,7 +174,7 @@ export default function PresenceBar({
         ) : (
           <div
             id="connection-status"
-            className="flex items-center space-x-2 text-xs font-semibold px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full"
+            className="flex items-center space-x-2 text-xs font-semibold px-2.5 py-1 bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 rounded-full"
           >
             <WifiOff className="w-3.5 h-3.5" />
             <span>Offline — will sync</span>
@@ -184,9 +185,9 @@ export default function PresenceBar({
         {typingUsers.length > 0 && (
           <div
             id="typing-indicator"
-            className="text-xs font-medium text-slate-500 italic animate-pulse flex items-center gap-1.5"
+            className="text-xs font-medium text-slate-500 dark:text-slate-400 italic animate-pulse flex items-center gap-1.5"
           >
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></span>
             <span>
               {typingUsers.slice(0, 2).join(', ')}
               {typingUsers.length > 2
@@ -220,31 +221,34 @@ export default function PresenceBar({
                 title={`${u.name} (${u.university || 'Collaborator'}) ${isMe ? '(You)' : ''}`}
               >
                 <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white border-2 border-white shadow-sm ring-1 ring-slate-200 transition-transform hover:scale-110 hover:z-20"
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white border-2 border-white dark:border-slate-800 shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 transition-transform hover:scale-110 hover:z-20"
                   style={{ backgroundColor: u.color }}
                 >
                   {initials}
                 </div>
                 {/* Tooltip */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block bg-slate-900 text-white text-[11px] rounded px-2 py-1 whitespace-nowrap shadow-lg z-30 pointer-events-none">
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block bg-slate-900 dark:bg-slate-800 text-white text-[11px] rounded px-2 py-1 whitespace-nowrap shadow-lg z-30 pointer-events-none border border-slate-700">
                   <p className="font-semibold">{u.name} {isMe && '(You)'}</p>
-                  <p className="text-[10px] text-slate-300">{u.university}</p>
+                  <p className="text-[10px] text-slate-300 dark:text-slate-400">{u.university}</p>
                 </div>
               </div>
             );
           })}
         </div>
 
+        {/* Theme Toggle */}
+        <ThemeToggle size="sm" />
+
         {/* Share Button */}
         <button
           onClick={copyShareLink}
-          className="flex items-center space-x-1.5 text-xs font-semibold px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md transition-colors"
+          className="flex items-center space-x-1.5 text-xs font-semibold px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-md transition-colors"
           title="Share document link"
         >
           {copiedLink ? (
             <>
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              <span className="text-emerald-700">Link Copied!</span>
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span className="text-emerald-700 dark:text-emerald-300">Link Copied!</span>
             </>
           ) : (
             <>
@@ -261,7 +265,7 @@ export default function PresenceBar({
           className={`flex items-center space-x-1.5 text-xs font-semibold px-3 py-1.5 rounded-md transition-colors ${
             showVersions
               ? 'bg-blue-600 text-white'
-              : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+              : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200'
           }`}
         >
           <History className="w-3.5 h-3.5" />
@@ -275,7 +279,7 @@ export default function PresenceBar({
           className={`flex items-center space-x-1.5 text-xs font-semibold px-3 py-1.5 rounded-md transition-colors ${
             showComments
               ? 'bg-amber-600 text-white'
-              : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+              : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200'
           }`}
         >
           <MessageSquare className="w-3.5 h-3.5" />

@@ -59,26 +59,26 @@ export default function VersionDiff({
   return (
     <div
       id="version-diff-modal"
-      className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6"
+      className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6"
     >
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden border border-slate-200">
+      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden border border-slate-200 dark:border-slate-800">
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-850/90 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-200 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
               <div className="flex items-center gap-2">
-                <GitCompare className="w-4 h-4 text-blue-600" />
-                <h3 className="font-bold text-slate-900 text-base">
+                <GitCompare className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">
                   Diff Preview: {versionName}
                 </h3>
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Comparing snapshot ({versionDate || 'Saved version'}) with Current Document
               </p>
             </div>
@@ -87,10 +87,10 @@ export default function VersionDiff({
           <div className="flex items-center space-x-3">
             {/* Diff Legend & Stats */}
             <div className="flex items-center space-x-2 text-xs font-semibold mr-2">
-              <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">
+              <span className="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
                 +{diffStats.added} added
               </span>
-              <span className="px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300">
+              <span className="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950/70 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-800">
                 -{diffStats.removed} removed
               </span>
             </div>
@@ -108,8 +108,8 @@ export default function VersionDiff({
         </div>
 
         {/* Diff Content Viewer (Read-only) */}
-        <div className="flex-1 overflow-y-auto p-8 bg-white">
-          <div className="max-w-2xl mx-auto border border-slate-100 rounded-lg p-6 bg-slate-50/50 shadow-inner">
+        <div className="flex-1 overflow-y-auto p-8 bg-white dark:bg-slate-900">
+          <div className="max-w-2xl mx-auto border border-slate-100 dark:border-slate-800 rounded-lg p-6 bg-slate-50/50 dark:bg-slate-950/60 shadow-inner">
             <div
               id="diff-rendered-content"
               dangerouslySetInnerHTML={{ __html: diffHtml }}
@@ -118,11 +118,11 @@ export default function VersionDiff({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs text-slate-500">
+        <div className="px-6 py-3 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
           <span>Non-destructive: Restoring will record a new snapshot.</span>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 font-medium"
+            className="px-4 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium transition-colors"
           >
             Close Diff
           </button>

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Sparkles, BookOpen, GraduationCap } from 'lucide-react';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const COURSE_PRESETS = [
   {
@@ -55,25 +56,28 @@ export default function CreateDocumentPage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-6">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Dashboard</span>
-        </Link>
+    <main className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center items-center p-6 transition-colors">
+      <div className="w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-8 transition-colors">
+        <div className="flex items-center justify-between mb-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to Dashboard</span>
+          </Link>
+          <ThemeToggle />
+        </div>
 
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 flex items-center justify-center">
             <BookOpen className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-slate-900">
+            <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">
               Create Collaborative Document
             </h1>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Auto-generates a real-time room for your group members.
             </p>
           </div>
@@ -81,7 +85,7 @@ export default function CreateDocumentPage() {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-5">
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
               Assignment Title
             </label>
             <input
@@ -91,14 +95,14 @@ export default function CreateDocumentPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="w-full text-sm p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none transition-shadow"
+              className="w-full text-sm p-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none transition-shadow"
               autoFocus
             />
           </div>
 
           {/* Quick presets */}
           <div>
-            <span className="block text-xs font-semibold text-slate-500 mb-2">
+            <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">
               Or pick an assignment template:
             </span>
             <div className="space-y-2">
@@ -107,15 +111,15 @@ export default function CreateDocumentPage() {
                   type="button"
                   key={preset.code}
                   onClick={() => setTitle(`${preset.code}: ${preset.title}`)}
-                  className="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-xs transition-colors flex items-center justify-between group"
+                  className="w-full text-left p-2.5 rounded-lg border border-slate-200 dark:border-slate-700/80 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-slate-800/80 text-xs transition-colors flex items-center justify-between group"
                 >
                   <div>
-                    <span className="font-bold text-slate-800 mr-2">
+                    <span className="font-bold text-slate-800 dark:text-slate-200 mr-2">
                       {preset.code}
                     </span>
-                    <span className="text-slate-600">{preset.title}</span>
+                    <span className="text-slate-600 dark:text-slate-400">{preset.title}</span>
                   </div>
-                  <span className="text-[10px] text-blue-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-[10px] text-blue-600 dark:text-blue-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
                     Use &rarr;
                   </span>
                 </button>
