@@ -6,9 +6,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "rootDir": ".",
     "noEmit": true,
-    "composite": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -19,9 +17,12 @@
       "@draftroom/shared/*": ["apps/shared/src/*"]
     }
   },
-  "references": [
-    { "path": "./apps/web" },
-    { "path": "./apps/collab-server" },
-    { "path": "./apps/shared" }
+  "include": [
+    "vitest.config.ts",
+    "e2e/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "apps"
   ]
 }
