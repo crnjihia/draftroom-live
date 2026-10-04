@@ -1,25 +1,38 @@
-name: CI
+name: Draftroom Live CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
-  build:
+  build-and-test:
+    name: Build & Test
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [20.x]
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
-      - run: npm run prisma:generate --workspaces
-      - run: npm run build --workspaces
-      - run: npm test --workspaces
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npm run prisma:generate --workspaces
+
+      - name: Run Unit & CRDT Tests
+        run: npm test --workspaces
+
+      - name: Build Packages & Next.js App
+        run: npm run build --workspaces
