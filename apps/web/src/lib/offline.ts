@@ -17,7 +17,7 @@ export function setupIndexedDBPersistence(
   }
 
   try {
-    const persistence = new IndexeddbPersistence(`andika-doc-${docId}`, ydoc);
+    const persistence = new IndexeddbPersistence(`draftroom-doc-${docId}`, ydoc);
 
     persistence.once('synced', () => {
       console.log(`[Offline Storage] Yjs IndexedDB hydrated for doc: ${docId}`);

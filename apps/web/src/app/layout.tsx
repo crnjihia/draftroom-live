@@ -3,7 +3,7 @@ import './globals.css';
 import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
-  title: 'Andika Live — Collaborative Assignment Editor',
+  title: 'Draftroom Live — Collaborative Assignment Editor',
   description:
     'Real-time collaborative document editor for university group assignments (USIU, UoN, Strathmore). CRDTs, live cursors, comments, version history.',
 };

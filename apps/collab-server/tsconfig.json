@@ -8,8 +8,8 @@
     "noEmit": false,
     "baseUrl": ".",
     "paths": {
-      "@andika/shared": ["../../apps/shared/dist/index"],
-      "@andika/shared/*": ["../../apps/shared/dist/*"]
+      "@draftroom/shared": ["../../apps/shared/dist/index"],
+      "@draftroom/shared/*": ["../../apps/shared/dist/*"]
     }
   },
   "include": ["src/**/*"],

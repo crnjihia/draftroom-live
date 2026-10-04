@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import * as Y from 'yjs';
 import { Socket } from 'socket.io-client';
 import { Editor } from '@tiptap/react';
-import { AwarenessUser, CommentThreadData } from '@andika/shared';
+import { AwarenessUser, CommentThreadData } from '@draftroom/shared';
 import {
   createAnchoredRange,
   resolveAnchoredRange,

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Socket } from 'socket.io-client';
 import { HocuspocusProvider } from '@hocuspocus/provider';
-import { AwarenessUser } from '@andika/shared';
+import { AwarenessUser } from '@draftroom/shared';
 import { Editor } from '@tiptap/react';
 
 interface RemoteCursor {

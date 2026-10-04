@@ -3,15 +3,15 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: andika
+      POSTGRES_USER: draftroom
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: andika_live
+      POSTGRES_DB: draftroom_live
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "andika"]
+      test: ["CMD", "pg_isready", "-U", "draftroom"]
       interval: 5s
       timeout: 5s
       retries: 5

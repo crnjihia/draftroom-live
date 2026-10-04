@@ -54,10 +54,10 @@ export default function SignInPage() {
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
         <div className="text-center mb-8">
           <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-extrabold text-xl mx-auto shadow-lg mb-3">
-            A
+            D
           </div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
-            Andika Live
+            Draftroom Live
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             Real-time Collaborative Editor for University Teams

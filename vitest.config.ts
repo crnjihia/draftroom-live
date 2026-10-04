@@ -4,7 +4,7 @@ import path from 'path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@andika/shared': path.resolve(__dirname, './apps/shared/dist/index.js'),
+      '@draftroom/shared': path.resolve(__dirname, './apps/shared/dist/index.js'),
       '@': path.resolve(__dirname, './apps/web/src'),
     },
   },

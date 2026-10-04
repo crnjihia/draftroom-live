@@ -5,7 +5,7 @@ import * as Y from 'yjs';
 import { HocuspocusProvider } from '@hocuspocus/provider';
 import { setupIndexedDBPersistence } from '@/lib/offline';
 import { createCollabSocket } from '@/lib/socket';
-import { AwarenessUser } from '@andika/shared';
+import { AwarenessUser } from '@draftroom/shared';
 import { Socket } from 'socket.io-client';
 
 const COLLAB_WS_URL =

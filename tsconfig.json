@@ -15,8 +15,8 @@
     "lib": ["es2022", "dom"],
     "baseUrl": ".",
     "paths": {
-      "@andika/shared": ["apps/shared/src/index"],
-      "@andika/shared/*": ["apps/shared/src/*"]
+      "@draftroom/shared": ["apps/shared/src/index"],
+      "@draftroom/shared/*": ["apps/shared/src/*"]
     }
   },
   "references": [

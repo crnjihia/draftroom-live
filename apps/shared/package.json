@@ -1,5 +1,5 @@
 {
-  "name": "@andika/shared",
+  "name": "@draftroom/shared",
   "version": "0.1.0",
   "private": true,
   "main": "dist/index.js",

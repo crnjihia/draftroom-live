@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import * as Y from 'yjs';
 import { Socket } from 'socket.io-client';
-import { AwarenessUser, NamedVersionData } from '@andika/shared';
+import { AwarenessUser, NamedVersionData } from '@draftroom/shared';
 import VersionDiff from './VersionDiff';
 import {
   History,

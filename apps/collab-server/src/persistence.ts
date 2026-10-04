@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import * as Y from 'yjs';
-import { prisma } from '@andika/shared';
+import { prisma } from '@draftroom/shared';
 
 /**
  * Computes SHA-256 hash of a Yjs state update.

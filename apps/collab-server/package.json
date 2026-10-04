@@ -1,5 +1,5 @@
 {
-  "name": "andika-collab-server",
+  "name": "draftroom-collab-server",
   "private": true,
   "scripts": {
     "dev": "ts-node src/index.ts",

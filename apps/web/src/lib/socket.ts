@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { AwarenessUser } from '@andika/shared';
+import { AwarenessUser } from '@draftroom/shared';
 
 const COLLAB_SERVER_URL =
   process.env.NEXT_PUBLIC_COLLAB_SERVER_URL || 'http://localhost:1234';

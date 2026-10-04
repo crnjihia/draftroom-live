@@ -22,10 +22,10 @@
       "@/*": [
         "./src/*"
       ],
-      "@andika/shared": [
+      "@draftroom/shared": [
         "../../apps/shared/dist/index"
       ],
-      "@andika/shared/*": [
+      "@draftroom/shared/*": [
         "../../apps/shared/dist/*"
       ]
     },

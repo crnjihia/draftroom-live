@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '@andika/shared';
+import { prisma } from '@draftroom/shared';
 
 // Kenyan university student profiles for collaborative assignment testing
 const UNIVERSITY_PRESETS: Record<
@@ -110,7 +110,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET || 'andika-live-secret-super-secure-key-32chars',
+  secret: process.env.NEXTAUTH_SECRET || 'draftroom-live-secret-super-secure-key-32chars',
 };
 
 export default NextAuth(authOptions);

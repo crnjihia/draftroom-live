@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@andika/shared';
+import { prisma } from '@draftroom/shared';
 
 // GET: list threads for doc
 export async function GET(

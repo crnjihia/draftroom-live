@@ -1,7 +1,7 @@
 import React from 'react';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@andika/shared';
+import { prisma } from '@draftroom/shared';
 import Editor from '@/components/editor/Editor';
 
 interface PageProps {

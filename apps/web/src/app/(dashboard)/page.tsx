@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@andika/shared';
+import { prisma } from '@draftroom/shared';
 import {
   FileText,
   Plus,
@@ -79,11 +79,11 @@ export default async function DashboardPage() {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold shadow-md">
-              A
+              D
             </div>
             <div>
               <span className="font-extrabold text-lg tracking-tight text-slate-900">
-                Andika Live
+                Draftroom Live
               </span>
               <span className="text-xs text-blue-600 font-semibold ml-2 px-2 py-0.5 bg-blue-50 border border-blue-200 rounded-full">
                 Collab Editor

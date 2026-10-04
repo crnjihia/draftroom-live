@@ -1,6 +1,6 @@
-# Andika Live ✍️
+# Draftroom Live ✍️
 
-> **Andika Live** is a production-grade, Google-Docs-class real-time collaborative document editor engineered specifically for university group assignments (tailored for university teams at **USIU-Africa**, **University of Nairobi (UoN)**, and **Strathmore University**).
+> **Draftroom Live** is a production-grade, Google-Docs-class real-time collaborative document editor engineered specifically for university group assignments (tailored for university teams at **USIU-Africa**, **University of Nairobi (UoN)**, and **Strathmore University**).
 
 Built on **Conflict-Free Replicated Data Types (CRDTs)** with **Yjs**, **TipTap 2**, **Hocuspocus**, **Socket.io**, **Redis pub/sub**, **PostgreSQL**, and **Prisma ORM**.
 
@@ -25,7 +25,7 @@ flowchart TD
         DiffUI["Version History + Visual Diff Modal"]
     end
 
-    subgraph CollabServer["Andika Collab Server (Node.js)"]
+    subgraph CollabServer["Draftroom Collab Server (Node.js)"]
         Hocuspocus["Hocuspocus Server (:1234)<br/>(Yjs CRDT Document Sync)"]
         SocketIO["Socket.io Server (:1234)<br/>(Presence, 50ms Cursors, Typing, Comments)"]
         RateLimiter["Room Rate Limiter<br/>(Max 20 Editors / Doc)"]
@@ -56,8 +56,7 @@ flowchart TD
 
 ## 🧬 CRDT Model (Yjs)
 
-Andika Live avoids centralized lock contention and operational transformation (OT) complexity by leveraging mathematical CRDTs:
-
+Draftroom Live avoids centralized lock contention and operational transformation (OT) complexity by leveraging mathematical CRDTs:
 - **Document State (`Y.Doc`)**: Each group assignment document is maintained as an independent `Y.Doc`. Edits from multiple collaborators form commutative, associative, and idempotent operations merged without conflict.
 - **Rich Text Binding (`Y.XmlFragment`)**: TipTap 2 ProseMirror document nodes bind directly to the `prosemirror` XML fragment in the `Y.Doc`. Formatting, lists, and headings synchronize instantaneously.
 - **Comment Anchoring (`Y.RelativePosition`)**: Instead of brittle numeric indices that break when preceding text is edited, comments are anchored to CRDT item identifiers using `Y.createRelativePositionFromTypeIndex`. If Collaborator B inserts or deletes paragraphs before the anchor, resolving the relative position always points to the exact target text.
@@ -117,8 +116,8 @@ Andika Live avoids centralized lock contention and operational transformation (O
 
 ### 2. Clone and Install
 ```bash
-git clone https://github.com/your-org/andika-live.git
-cd andika-live
+git clone https://github.com/your-org/draftroom-live.git
+cd draftroom-live
 
 # Install dependencies across all workspaces
 npm install
@@ -132,11 +131,11 @@ cp .env.example .env
 
 | Variable | Description | Default |
 | :--- | :--- | :--- |
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://andika:password@localhost:5432/andika_live` |
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://draftroom:password@localhost:5432/draftroom_live` |
 | `REDIS_HOST` | Redis host for horizontal scaling | `localhost` |
 | `REDIS_PORT` | Redis port | `6379` |
 | `PORT` | Collab server port | `1234` |
-| `NEXTAUTH_SECRET` | NextAuth JWT encryption secret | `andika-live-secret-super-secure-key-32chars` |
+| `NEXTAUTH_SECRET` | NextAuth JWT encryption secret | `draftroom-live-secret-super-secure-key-32chars` |
 | `NEXTAUTH_URL` | NextAuth canonical URL | `http://localhost:3000` |
 | `NEXT_PUBLIC_COLLAB_WS_URL` | Hocuspocus WebSocket URL | `ws://localhost:1234` |
 | `NEXT_PUBLIC_COLLAB_SERVER_URL` | Socket.io server URL | `http://localhost:1234` |
@@ -185,7 +184,7 @@ npm run test:e2e
 ## 📦 Project Structure
 
 ```
-andika-live/
+draftroom-live/
 ├── apps/
 │   ├── web/                              # Next.js 14 App Router UI
 │   │   ├── src/app/
