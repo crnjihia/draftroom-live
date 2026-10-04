@@ -1,15 +1,27 @@
 {
+  "name": "andika-live",
   "private": true,
-  "workspaces": ["apps/*"],
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
     "dev": "npm run dev --workspaces",
     "build": "npm run build --workspaces",
     "lint": "npm run lint --workspaces",
-    "test": "npm run test --workspaces"
+    "test": "vitest run",
+    "test:workspaces": "npm run test --workspaces",
+    "test:e2e": "playwright test",
+    "prisma:generate": "prisma generate --schema=prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema=prisma/schema.prisma"
   },
   "devDependencies": {
-    "typescript": "^5.5.4",
+    "@playwright/test": "^1.45.3",
     "eslint": "^9.8.0",
-    "prettier": "^3.3.3"
+    "jsdom": "^24.0.0",
+    "prettier": "^3.3.3",
+    "prisma": "^5.22.0",
+    "typescript": "^5.5.4",
+    "vitest": "^5.0.3"
   }
 }

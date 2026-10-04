@@ -12,7 +12,12 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "lib": ["es2022", "dom"]
+    "lib": ["es2022", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@andika/shared": ["apps/shared/src/index"],
+      "@andika/shared/*": ["apps/shared/src/*"]
+    }
   },
   "references": [
     { "path": "./apps/web" },

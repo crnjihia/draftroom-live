@@ -2,6 +2,7 @@ node_modules/
 # output directories
 dist/
 build/
+*.tsbuildinfo
 # local env files
 .env
 .env.local
