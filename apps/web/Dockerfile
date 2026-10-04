@@ -48,6 +48,9 @@ ENV NEXT_PUBLIC_COLLAB_WS_URL=$NEXT_PUBLIC_COLLAB_WS_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
+# Ensure public directory exists even if the source repository has no static assets
+RUN mkdir -p /app/apps/web/public
+
 # Build the Next.js application with output: 'standalone'
 RUN npm run build -w apps/web
 
