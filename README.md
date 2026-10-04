@@ -4,7 +4,7 @@
 
 **Google-Docs-class, real-time collaborative document editor engineered with mathematical CRDTs for university group assignments.**
 
-[![CI](https://github.com/your-org/draftroom-live/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/draftroom-live/actions/workflows/ci.yml)
+[![CI](https://github.com/crnjihia/draftroom-live/actions/workflows/ci.yml/badge.svg)](https://github.com/crnjihia/draftroom-live/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-14_App_Router-black.svg?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TipTap](https://img.shields.io/badge/TipTap-2.x_ProseMirror-teal.svg?logo=prosemirror&logoColor=white)](https://tiptap.dev/)
@@ -161,7 +161,7 @@ flowchart TD
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/your-username/draftroom-live.git
+git clone https://github.com/crnjihia/draftroom-live.git
 cd draftroom-live
 ```
 
@@ -293,7 +293,7 @@ draftroom-live/
 
 ## 🤝 Contributing
 
-Contributions are warmly welcomed! Please read our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before submitting pull requests.
+Contributions are warmly welcomed! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting pull requests.
 
 ---
 

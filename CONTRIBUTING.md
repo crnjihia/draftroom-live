@@ -1,6 +1,6 @@
 # Contributing to Draftroom Live ✍️
 
-Thank you for your interest in contributing to Draftroom Live! We welcome contributions from developers, researchers, and university students interested in CRDTs, real-time systems, and collaborative web applications.
+Thank you for your interest in contributing to Draftroom Live! I welcome contributions from developers, researchers, and university students interested in CRDTs, real-time systems, and collaborative web applications.
 
 ---
 
@@ -19,7 +19,7 @@ By participating in this project, you agree to abide by our [Code of Conduct](CO
 
 ### 2. Fork and Clone
 ```bash
-git clone https://github.com/your-username/draftroom-live.git
+git clone https://github.com/crnjihia/draftroom-live.git
 cd draftroom-live
 git checkout -b feat/your-feature-name
 ```
@@ -70,7 +70,7 @@ npm run test:e2e
 
 ## 📝 Commit Conventions
 
-We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+I follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
 
 - `feat:` New features or user-facing enhancements
 - `fix:` Bug fixes
