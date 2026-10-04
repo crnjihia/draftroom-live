@@ -31,7 +31,7 @@ jobs:
       - name: Generate Prisma Client
         run: npm run prisma:generate
 
-      - name: Run Unit & CRDT Tests
+      - name: Run Unit Tests
         run: npm test --workspace=@draftroom/shared
 
       - name: Build Packages & Next.js App
