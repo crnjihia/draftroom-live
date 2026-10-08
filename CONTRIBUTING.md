@@ -6,7 +6,7 @@ Thank you for your interest in contributing to StudyRoom Live! I welcome contrib
 
 ## 🧭 Code of Conduct
 
-By participating in this project, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please treat all contributors with respect and professionalism.
+Please treat all contributors with respect and professionalism.
 
 ---
 
