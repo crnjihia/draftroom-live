@@ -1,4 +1,4 @@
-import { AwarenessState, AwarenessUser } from '@draftroom/shared';
+import { AwarenessState, AwarenessUser } from '@studyroom/shared';
 
 /**
  * Throttler that ensures awareness broadcasts (such as live cursor updates)

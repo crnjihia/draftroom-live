@@ -1,7 +1,7 @@
 import { Server as SocketIOServer, Socket } from 'socket.io';
 import { Server as HttpServer } from 'http';
 import Redis from 'ioredis';
-import { AwarenessState, AwarenessUser } from '@draftroom/shared';
+import { AwarenessState, AwarenessUser } from '@studyroom/shared';
 import { awarenessThrottler, presenceStore } from './awareness';
 
 const MAX_EDITORS_PER_DOC = 20;
@@ -50,12 +50,12 @@ export function createSocketIO(httpServer: HttpServer) {
       });
 
       // Subscribe to cross-instance room events
-      redisSub.subscribe('draftroom:collab:broadcast', () => {
+      redisSub.subscribe('studyroom:collab:broadcast', () => {
         console.log('[Socket.io] Connected to Redis pub/sub for horizontal scaling');
       });
 
       redisSub.on('message', (channel, message) => {
-        if (channel === 'draftroom:collab:broadcast') {
+        if (channel === 'studyroom:collab:broadcast') {
           try {
             const { docId, event, data, originSocketId } = JSON.parse(message);
             io.to(docId).except(originSocketId).emit(event, data);
@@ -76,7 +76,7 @@ export function createSocketIO(httpServer: HttpServer) {
     // Redis broadcast for other server instances
     if (redisPub && redisPub.status === 'ready') {
       redisPub.publish(
-        'draftroom:collab:broadcast',
+        'studyroom:collab:broadcast',
         JSON.stringify({ docId, event, data, originSocketId })
       );
     }

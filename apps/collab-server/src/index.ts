@@ -17,7 +17,7 @@ async function bootstrap() {
   const io = createSocketIO(hocuspocus.httpServer);
 
   console.log(`\n======================================================`);
-  console.log(`⚡️ DRAFTROOM LIVE COLLAB SERVER`);
+  console.log(`⚡️ STUDYROOM LIVE COLLAB SERVER`);
   console.log(`📡 WebSocket (Hocuspocus Yjs sync): ws://localhost:${PORT}`);
   console.log(`💬 Socket.io (Presence & Cursors):  http://localhost:${PORT}`);
   console.log(`======================================================\n`);

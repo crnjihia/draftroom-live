@@ -31,7 +31,7 @@ export function createHocuspocus(): HocuspocusServer {
   }
 
   const server = new HocuspocusServer({
-    name: 'draftroom-hocuspocus',
+    name: 'studyroom-hocuspocus',
     port: Number(process.env.PORT ?? 1234),
     debounce: 30000,
     maxDebounce: 30000,

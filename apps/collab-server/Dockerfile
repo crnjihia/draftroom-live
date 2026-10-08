@@ -1,5 +1,5 @@
 # ==============================================================================
-# Multi-Stage Dockerfile for Draftroom Live Collab Server (Socket.io + Yjs)
+# Multi-Stage Dockerfile for StudyRoom Live Collab Server (Socket.io + Yjs)
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
