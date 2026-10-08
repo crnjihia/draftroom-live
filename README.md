@@ -1,10 +1,10 @@
 <div align="center">
 
-# Draftroom Live ✍️
+# StudyRoom Live ✍️ 🇰🇪
 
 **Google-Docs-class, real-time collaborative document editor engineered with mathematical CRDTs for university group assignments.**
 
-[![CI](https://github.com/crnjihia/draftroom-live/actions/workflows/ci.yml/badge.svg)](https://github.com/crnjihia/draftroom-live/actions/workflows/ci.yml)
+[![CI](https://github.com/crnjihia/studyroom-live/actions/workflows/ci.yml/badge.svg)](https://github.com/crnjihia/studyroom-live/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-14_App_Router-black.svg?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TipTap](https://img.shields.io/badge/TipTap-2.x_ProseMirror-teal.svg?logo=prosemirror&logoColor=white)](https://tiptap.dev/)
@@ -19,10 +19,10 @@
 <br />
 
 <p align="center">
-  <img src="docs/screenshots/dashboard-dark.png" alt="Draftroom Live Dark Mode Dashboard" width="900" style="border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);" />
+  <img src="docs/screenshots/dashboard-dark.png" alt="StudyRoom Live Dark Mode Dashboard" width="920" style="border-radius: 14px; box-shadow: 0 24px 48px rgba(0,0,0,0.6);" />
 </p>
 
-*Draftroom Live Dashboard — featuring university assignment workspaces, live presence, and seamless dark mode.*
+*StudyRoom Live Dashboard — featuring university assignment workspaces, live presence, and seamless dark mode.*
 
 </div>
 
@@ -30,11 +30,11 @@
 
 ## 📖 Overview
 
-**Draftroom Live** is an open-source, production-grade collaborative document platform tailored for high-concurrency university group assignments. Built to eliminate the friction of group projects across Kenyan universities (**USIU-Africa**, **University of Nairobi**, and **Strathmore University**), Draftroom Live combines peer-to-peer CRDT primitives with centralized cloud durability.
+**StudyRoom Live** is an open-source, production-grade collaborative document platform tailored for high-concurrency university group assignments. Built to eliminate the friction of group projects across Kenyan universities (**USIU-Africa**, **University of Nairobi**, and **Strathmore University**), StudyRoom Live combines peer-to-peer CRDT primitives with centralized cloud durability.
 
-Traditional editors rely on centralized Operational Transformation (OT) or lock-based mechanics that trigger merge conflicts and clunky overwrite warnings. Draftroom Live solves this at the data structure level:
-- Every keystroke operates on a **commutative, associative, and idempotent CRDT model** (`Y.Doc`).
-- Comment anchors dynamically adjust to paragraph insertions via **mathematical relative positions** (`Y.RelativePosition`).
+Traditional document editors rely on centralized Operational Transformation (OT) or lock-based mechanics that trigger merge conflicts and clunky overwrite warnings. StudyRoom Live solves this at the data structure level:
+- Every keystroke operates on a **commutative, associative, and idempotent CRDT model** (`Y.Doc` + `Y.XmlFragment`).
+- Comment anchors dynamically adjust to paragraph insertions and deletions via **mathematical relative positions** (`Y.RelativePosition`).
 - Document snapshots are automatically deduplicated in PostgreSQL via **SHA-256 hashing**.
 - Complete client-side resilience with **`y-indexeddb` offline-first cache**.
 
@@ -50,7 +50,7 @@ flowchart TD
         ClientC["Browser C (Faith - Strathmore Univ.)"]
     end
 
-    subgraph WebApp["Next.js 14 Web Application (App Router)"]
+    subgraph WebApp["Next.js 14 Web Application (:3001)"]
         TipTapEditor["TipTap 2 Editor (ProseMirror Engine)"]
         YDocState["Local Y.Doc + Y.XmlFragment"]
         IndexedDB["y-indexeddb (Offline Resilience)"]
@@ -60,7 +60,7 @@ flowchart TD
         VersionDiff["Version History & Visual LCS Diff Modal"]
     end
 
-    subgraph CollabServer["Draftroom Collab Server (:1234)"]
+    subgraph CollabServer["StudyRoom Collab Server (:1234)"]
         Hocuspocus["Hocuspocus WebSocket Server<br/>(Yjs CRDT Document Synchronization)"]
         SocketIO["Socket.io Real-time Coordinator<br/>(Presence, Carets, Typing, Comments)"]
         RoomGuard["Room Concurrency Guard<br/>(Max 20 Active Editors / Room)"]
@@ -96,13 +96,13 @@ flowchart TD
 - **Zero Merge Conflicts**: Edits commute cleanly across concurrent peer nodes regardless of arrival order or temporary network partitions.
 
 ### 2. 📍 Drift-Free Comment Anchoring
-- Standard document editors anchor comments to numeric string indices (e.g. `chars 120-145`), causing comments to detach whenever preceding text is inserted or deleted.
-- Draftroom Live implements `Y.createRelativePositionFromTypeIndex`, binding comments directly to CRDT Item IDs:
+- Standard document editors anchor comments to numeric string indices (e.g., `chars 120-145`), causing comments to detach whenever preceding text is modified.
+- StudyRoom Live implements `Y.createRelativePositionFromTypeIndex`, binding comments directly to CRDT Item IDs:
   $$\text{RelativePosition} = (\text{TypeID}, \text{ItemClock}, \text{Offset})$$
 - When collaborators type or remove paragraphs ahead of a comment, resolving the anchor points cleanly to the updated character positions.
 
 ### 3. 🎯 50ms Throttled Live Cursors & Typing Awareness
-- Collaborators see real-time cursor carets with custom brand colors and university affiliation tags (*e.g. "Brian • Univ. of Nairobi"*).
+- Collaborators see real-time cursor carets with custom brand colors and university affiliation tags (*e.g., "Brian • Univ. of Nairobi"*).
 - Awareness events are rate-limited to **50ms intervals**, ensuring butter-smooth tracking while preventing network flooding.
 
 ### 4. 🕒 Named Milestones & SHA-256 Snapshot Deduplication
@@ -113,7 +113,7 @@ flowchart TD
 
 ### 5. 🌗 Complete Light & Dark Mode
 - Built with a tailored slate/indigo palette (`slate-950`, `slate-900`, `slate-800`).
-- Persistent storage (`localStorage.getItem('draftroom-theme')`) with system `prefers-color-scheme` fallback.
+- Persistent storage (`localStorage.getItem('studyroom-theme')`) with system `prefers-color-scheme` fallback.
 - **Anti-FOUC** inline `<head>` execution script to eliminate white flashes on cold reloads.
 - Dark-themed ProseMirror typography, comment highlights, carets, and custom scrollbars.
 
@@ -125,7 +125,7 @@ flowchart TD
   - 🔵 **Connecting...**
   - 🟠 **Offline — will sync**
 
-### 7. 🎓 University Group Assignments Context
+### 7. 🎓 Kenyan University Context & Presets
 - Built-in university student personas for instant 1-click evaluation:
   - 🟣 **Amina Odhiambo** (*USIU-Africa*)
   - 🔵 **Brian Kiprop** (*University of Nairobi*)
@@ -161,12 +161,12 @@ flowchart TD
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/crnjihia/draftroom-live.git
-cd draftroom-live
+git clone https://github.com/crnjihia/studyroom-live.git
+cd studyroom-live
 ```
 
 ### Step 2: Install Dependencies
-Draftroom Live is organized as an npm workspace monorepo:
+StudyRoom Live is organized as an npm workspace monorepo:
 ```bash
 npm install
 ```
@@ -179,21 +179,21 @@ cp .env.example .env
 
 | Key | Description | Default |
 | :--- | :--- | :--- |
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://draftroom:password@localhost:5432/draftroom_live?schema=public` |
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://studyroom:password@localhost:5432/studyroom_live?schema=public` |
 | `REDIS_HOST` | Redis host | `localhost` |
 | `REDIS_PORT` | Redis port | `6379` |
 | `PORT` | Collab server port | `1234` |
-| `NEXTAUTH_SECRET` | NextAuth JWT secret | `draftroom-live-secret-super-secure-key-32chars` |
-| `NEXTAUTH_URL` | NextAuth base URL | `http://localhost:3000` |
+| `NEXTAUTH_SECRET` | NextAuth JWT secret | `studyroom-live-secret-super-secure-key-32chars` |
+| `NEXTAUTH_URL` | NextAuth base URL | `http://localhost:3001` |
 | `NEXT_PUBLIC_COLLAB_WS_URL` | Hocuspocus WebSocket endpoint | `ws://localhost:1234` |
 | `NEXT_PUBLIC_COLLAB_SERVER_URL` | Socket.io HTTP/WS endpoint | `http://localhost:1234` |
 
 ---
 
-### Step 4: Start Infrastructure (Docker)
+### Step 4: Start Infrastructure (Docker Compose)
 Start the PostgreSQL and Redis containers in the background:
 ```bash
-docker compose up -d postgres redis
+docker compose up -d db redis
 ```
 
 Generate the Prisma client:
@@ -203,7 +203,7 @@ npm run prisma:generate
 
 Push schema migrations and seed demo university data:
 ```bash
-npm run prisma:push --workspace=@draftroom/shared
+npm run prisma:push --workspace=@studyroom/shared
 node prisma/seed.js
 ```
 
@@ -221,7 +221,22 @@ In **Terminal 2** (Next.js Web App):
 npm run dev -w apps/web
 ```
 
-Open **[http://localhost:3000](http://localhost:3000)** in your browser!
+Open **[http://localhost:3001](http://localhost:3001)** in your browser!
+
+---
+
+## 👥 How to Test Real-Time Collaboration
+
+Experience Google-Docs-class concurrent editing using two browser windows side by side:
+
+1. **Window A**: Open [http://localhost:3001/auth/signin](http://localhost:3001/auth/signin) and select **Amina Odhiambo** (*USIU-Africa*).
+2. **Window B**: Open [http://localhost:3001/auth/signin](http://localhost:3001/auth/signin) in an **Incognito / Private Window** and select **Brian Kiprop** (*University of Nairobi*).
+3. **Open the same document**: In both windows, click on:
+   👉 **[http://localhost:3001/documents/usiu-apt3040-distributed-sys](http://localhost:3001/documents/usiu-apt3040-distributed-sys)**
+4. **Live Typing**: Type in Window A. Observe sub-300ms propagation in Window B without cursor jumps or merge conflicts.
+5. **Presence & Carets**: Move your cursor in Window A; observe the live caret indicator labeled with Amina's name in Window B.
+6. **Anchored Comments**: Highlight a phrase, click **Comment**, and submit. Add or delete text above it to verify drift-free relative anchoring.
+7. **Version Milestones**: Open the history panel, name a checkpoint (*"Draft Milestone"*), and preview the visual word-level LCS diff modal.
 
 ---
 
@@ -244,13 +259,15 @@ npm run test:e2e
 ## 📁 Repository Structure
 
 ```
-draftroom-live/
+studyroom-live/
 ├── .github/
-│   ├── workflows/ci.yml                  # GitHub Actions CI build & test pipeline
+│   ├── workflows/
+│   │   ├── ci.yml                        # GitHub Actions CI build & test pipeline
+│   │   └── release.yml                   # Automated GHCR container publishing
 │   ├── ISSUE_TEMPLATE/                   # Bug report & feature request templates
 │   └── PULL_REQUEST_TEMPLATE.md          # Standard PR checklist
 ├── apps/
-│   ├── web/                              # Next.js 14 App Router Web Application
+│   ├── web/                              # Next.js 14 App Router Web Application (:3001)
 │   │   ├── src/app/
 │   │   │   ├── (dashboard)/
 │   │   │   │   ├── page.tsx              # University dashboard with assignment cards
@@ -278,11 +295,13 @@ draftroom-live/
 │   │   └── src/persistence.ts            # PostgreSQL snapshots + SHA-256 dedup
 │   └── shared/                           # Shared TypeScript types & Prisma client
 ├── docs/
-│   └── screenshots/                      # High-resolution screenshots for showcase
+│   └── screenshots/                      # High-resolution UI showcase screenshots
+│       └── dashboard-dark.png            # Dark-mode dashboard screenshot
 ├── prisma/
 │   ├── schema.prisma                     # PostgreSQL schema definition
 │   └── seed.js                           # Seed script with demo students & assignments
-├── docker-compose.yml                    # Container stack (Postgres + Redis)
+├── docker-compose.yml                    # Local multi-service development stack
+├── docker-compose.release.yml            # Production container release stack
 ├── CONTRIBUTING.md                       # Open-source contribution guidelines
 ├── CODE_OF_CONDUCT.md                    # Community code of conduct
 ├── LICENSE                               # MIT License

@@ -1,6 +1,6 @@
-# Contributing to Draftroom Live ✍️
+# Contributing to StudyRoom Live ✍️
 
-Thank you for your interest in contributing to Draftroom Live! I welcome contributions from developers, researchers, and university students interested in CRDTs, real-time systems, and collaborative web applications.
+Thank you for your interest in contributing to StudyRoom Live! I welcome contributions from developers, researchers, and university students interested in CRDTs, real-time systems, and collaborative web applications.
 
 ---
 
@@ -19,13 +19,13 @@ By participating in this project, you agree to abide by our [Code of Conduct](CO
 
 ### 2. Fork and Clone
 ```bash
-git clone https://github.com/crnjihia/draftroom-live.git
-cd draftroom-live
+git clone https://github.com/crnjihia/studyroom-live.git
+cd studyroom-live
 git checkout -b feat/your-feature-name
 ```
 
 ### 3. Install Dependencies
-Draftroom Live uses npm workspaces:
+StudyRoom Live uses npm workspaces:
 ```bash
 npm install
 ```
