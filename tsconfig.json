@@ -13,8 +13,8 @@
     "lib": ["es2022", "dom"],
     "baseUrl": ".",
     "paths": {
-      "@draftroom/shared": ["apps/shared/src/index"],
-      "@draftroom/shared/*": ["apps/shared/src/*"]
+      "@studyroom/shared": ["apps/shared/src/index"],
+      "@studyroom/shared/*": ["apps/shared/src/*"]
     }
   },
   "include": [
