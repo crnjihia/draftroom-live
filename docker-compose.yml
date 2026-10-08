@@ -1,7 +1,7 @@
 version: '3.9'
 
 # ==============================================================================
-# Draftroom Live - Full Local Stack Orchestration
+# StudyRoom Live - Full Local Stack Orchestration
 # Dev-only credentials clearly marked. Never use these in production!
 # ==============================================================================
 
@@ -11,17 +11,17 @@ services:
   # ----------------------------------------------------------------------------
   db:
     image: postgres:16-alpine
-    container_name: draftroom-db
+    container_name: studyroom-db
     environment:
-      POSTGRES_USER: draftroom
+      POSTGRES_USER: studyroom
       POSTGRES_PASSWORD: dev_password_only_change_in_prod # DEV-ONLY CREDENTIAL
-      POSTGRES_DB: draftroom_live
+      POSTGRES_DB: studyroom_live
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U draftroom -d draftroom_live"]
+      test: ["CMD-SHELL", "pg_isready -U studyroom -d studyroom_live"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -33,7 +33,7 @@ services:
   # ----------------------------------------------------------------------------
   redis:
     image: redis:7-alpine
-    container_name: draftroom-redis
+    container_name: studyroom-redis
     ports:
       - "6379:6379"
     volumes:
@@ -50,12 +50,12 @@ services:
   # ----------------------------------------------------------------------------
   migrate:
     image: node:20-alpine
-    container_name: draftroom-migrate
+    container_name: studyroom-migrate
     working_dir: /app
     volumes:
       - .:/app
     environment:
-      DATABASE_URL: postgresql://draftroom:dev_password_only_change_in_prod@db:5432/draftroom_live?schema=public
+      DATABASE_URL: postgresql://studyroom:dev_password_only_change_in_prod@db:5432/studyroom_live?schema=public
     command: >
       sh -c "npx prisma db push --schema=prisma/schema.prisma && node prisma/seed.js"
     depends_on:
@@ -70,12 +70,12 @@ services:
     build:
       context: .
       dockerfile: apps/collab-server/Dockerfile
-    container_name: draftroom-collab
+    container_name: studyroom-collab
     ports:
       - "4000:4000"
     environment:
       PORT: 4000
-      DATABASE_URL: postgresql://draftroom:dev_password_only_change_in_prod@db:5432/draftroom_live?schema=public
+      DATABASE_URL: postgresql://studyroom:dev_password_only_change_in_prod@db:5432/studyroom_live?schema=public
       REDIS_HOST: redis
       REDIS_PORT: 6379
     depends_on:
@@ -98,13 +98,13 @@ services:
         NEXT_PUBLIC_APP_URL: http://localhost:3000
         NEXT_PUBLIC_COLLAB_SERVER_URL: http://localhost:4000
         NEXT_PUBLIC_COLLAB_WS_URL: ws://localhost:4000
-    container_name: draftroom-web
+    container_name: studyroom-web
     ports:
       - "3000:3000"
     environment:
       NODE_ENV: production
       PORT: 3000
-      DATABASE_URL: postgresql://draftroom:dev_password_only_change_in_prod@db:5432/draftroom_live?schema=public
+      DATABASE_URL: postgresql://studyroom:dev_password_only_change_in_prod@db:5432/studyroom_live?schema=public
       REDIS_HOST: redis
       REDIS_PORT: 6379
       NEXTAUTH_URL: http://localhost:3000
@@ -125,6 +125,6 @@ services:
 # ------------------------------------------------------------------------------
 volumes:
   pgdata:
-    name: draftroom_pgdata
+    name: studyroom_pgdata
   redisdata:
-    name: draftroom_redisdata
+    name: studyroom_redisdata

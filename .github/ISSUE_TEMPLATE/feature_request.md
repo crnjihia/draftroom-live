@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest an idea or enhancement for Draftroom Live
+about: Suggest an idea or enhancement for StudyRoom Live
 title: '[FEAT] '
 labels: 'enhancement'
 assignees: ''

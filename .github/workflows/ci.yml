@@ -1,4 +1,4 @@
-name: Draftroom Live CI
+name: StudyRoom Live CI
 
 on:
   push:

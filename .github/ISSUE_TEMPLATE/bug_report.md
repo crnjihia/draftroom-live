@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Create a report to help us improve Draftroom Live
+about: Create a report to help us improve StudyRoom Live
 title: '[BUG] '
 labels: 'bug'
 assignees: ''

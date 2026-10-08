@@ -1,7 +1,7 @@
 version: '3.9'
 
 # ==============================================================================
-# Draftroom Live - Production Release Deployment Stack
+# StudyRoom Live - Production Release Deployment Stack
 # Spin up with: docker compose -f docker-compose.release.yml up -d
 # Uses pre-built multi-arch images from GitHub Container Registry (GHCR)
 # ==============================================================================
@@ -12,15 +12,15 @@ services:
   # ----------------------------------------------------------------------------
   db:
     image: postgres:16-alpine
-    container_name: draftroom-release-db
+    container_name: studyroom-release-db
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-draftroom}
+      POSTGRES_USER: ${POSTGRES_USER:-studyroom}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_in_production}
-      POSTGRES_DB: ${POSTGRES_DB:-draftroom_live}
+      POSTGRES_DB: ${POSTGRES_DB:-studyroom_live}
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-draftroom} -d ${POSTGRES_DB:-draftroom_live}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-studyroom} -d ${POSTGRES_DB:-studyroom_live}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -32,7 +32,7 @@ services:
   # ----------------------------------------------------------------------------
   redis:
     image: redis:7-alpine
-    container_name: draftroom-release-redis
+    container_name: studyroom-release-redis
     volumes:
       - redisdata:/data
     healthcheck:
@@ -46,13 +46,13 @@ services:
   # 3. Pre-built Socket.io & Yjs Collaboration Server
   # ----------------------------------------------------------------------------
   collab:
-    image: ghcr.io/crnjihia/draftroom-live-collab:${VERSION:-latest}
-    container_name: draftroom-release-collab
+    image: ghcr.io/crnjihia/studyroom-live-collab:${VERSION:-latest}
+    container_name: studyroom-release-collab
     ports:
       - "4000:4000"
     environment:
       PORT: 4000
-      DATABASE_URL: postgresql://${POSTGRES_USER:-draftroom}:${POSTGRES_PASSWORD:-change_me_in_production}@db:5432/${POSTGRES_DB:-draftroom_live}?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER:-studyroom}:${POSTGRES_PASSWORD:-change_me_in_production}@db:5432/${POSTGRES_DB:-studyroom_live}?schema=public
       REDIS_HOST: redis
       REDIS_PORT: 6379
     depends_on:
@@ -66,14 +66,14 @@ services:
   # 4. Pre-built Next.js Web Application
   # ----------------------------------------------------------------------------
   web:
-    image: ghcr.io/crnjihia/draftroom-live-web:${VERSION:-latest}
-    container_name: draftroom-release-web
+    image: ghcr.io/crnjihia/studyroom-live-web:${VERSION:-latest}
+    container_name: studyroom-release-web
     ports:
       - "3000:3000"
     environment:
       NODE_ENV: production
       PORT: 3000
-      DATABASE_URL: postgresql://${POSTGRES_USER:-draftroom}:${POSTGRES_PASSWORD:-change_me_in_production}@db:5432/${POSTGRES_DB:-draftroom_live}?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER:-studyroom}:${POSTGRES_PASSWORD:-change_me_in_production}@db:5432/${POSTGRES_DB:-studyroom_live}?schema=public
       REDIS_HOST: redis
       REDIS_PORT: 6379
       NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
@@ -91,6 +91,6 @@ services:
 
 volumes:
   pgdata:
-    name: draftroom_release_pgdata
+    name: studyroom_release_pgdata
   redisdata:
-    name: draftroom_release_redisdata
+    name: studyroom_release_redisdata
