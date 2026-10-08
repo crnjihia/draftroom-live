@@ -1,7 +1,7 @@
 import React from 'react';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@draftroom/shared';
+import { prisma } from '@studyroom/shared';
 import dynamic from 'next/dynamic';
 
 const Editor = dynamic(() => import('@/components/editor/Editor'), {

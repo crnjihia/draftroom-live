@@ -3,7 +3,7 @@ import './globals.css';
 import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
-  title: 'Draftroom Live — Collaborative Assignment Editor',
+  title: 'StudyRoom Live — Collaborative Assignment Editor',
   description:
     'Real-time collaborative document editor for university group assignments (USIU, UoN, Strathmore). CRDTs, live cursors, comments, version history.',
 };
@@ -20,7 +20,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const theme = localStorage.getItem('draftroom-theme');
+                const theme = localStorage.getItem('studyroom-theme');
                 if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                   document.documentElement.classList.add('dark');
                 } else {

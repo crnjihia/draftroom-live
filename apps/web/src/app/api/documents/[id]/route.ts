@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@draftroom/shared';
+import { prisma } from '@studyroom/shared';
 
 export async function GET(
   request: Request,

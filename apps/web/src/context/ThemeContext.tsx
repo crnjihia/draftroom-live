@@ -24,7 +24,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setMounted(true);
     // Read persisted theme or default from document class (pre-set by layout script)
     const isDark = document.documentElement.classList.contains('dark');
-    const savedTheme = localStorage.getItem('draftroom-theme') as Theme | null;
+    const savedTheme = localStorage.getItem('studyroom-theme') as Theme | null;
 
     if (savedTheme) {
       setThemeState(savedTheme);
@@ -42,7 +42,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
     try {
-      localStorage.setItem('draftroom-theme', newTheme);
+      localStorage.setItem('studyroom-theme', newTheme);
       if (newTheme === 'dark') {
         document.documentElement.classList.add('dark');
       } else {

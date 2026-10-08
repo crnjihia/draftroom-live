@@ -10,7 +10,7 @@ import PresenceBar from './PresenceBar';
 import CursorOverlay from './CursorOverlay';
 import CommentSidebar from './CommentSidebar';
 import VersionHistory from './VersionHistory';
-import { AwarenessUser } from '@draftroom/shared';
+import { AwarenessUser } from '@studyroom/shared';
 import {
   Bold,
   Italic,

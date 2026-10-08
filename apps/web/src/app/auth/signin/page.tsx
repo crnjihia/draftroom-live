@@ -62,7 +62,7 @@ export default function SignInPage() {
             D
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
-            Draftroom Live
+            StudyRoom Live
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Real-time Collaborative Editor for University Teams

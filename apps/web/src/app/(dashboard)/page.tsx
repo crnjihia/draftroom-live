@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@draftroom/shared';
+import { prisma } from '@studyroom/shared';
 import {
   FileText,
   Plus,
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
             </div>
             <div>
               <span className="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
-                Draftroom Live
+                StudyRoom Live
               </span>
               <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold ml-2 px-2 py-0.5 bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 rounded-full">
                 Collab Editor
